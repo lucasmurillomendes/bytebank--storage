@@ -1,8 +1,15 @@
+import 'package:bytebank/models/contact.dart';
+import 'package:bytebank/screens/contact_form.dart';
+import 'package:bytebank/screens/dashboard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+
+import 'database/app_database.dart';
 
 void main() {
   runApp(BytebankApp());
+  save(Contact(0, 'Pedro', 1000)).then((id){
+    findAll().then((contacts) => debugPrint(contacts.toString()));
+  });
 }
 
 class BytebankApp extends StatelessWidget {
@@ -18,53 +25,8 @@ class BytebankApp extends StatelessWidget {
             textTheme: ButtonTextTheme.primary,
           ),
         ),
-        home: Dashboard()
-    );
+        home: Dashboard());
   }
 }
 
-class Dashboard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Dashboard'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Image.asset('images/bytebank_logo.png'),
-            Container(
-              height: 100,
-              width: 150,
-              color: Theme
-                  .of(context)
-                  .primaryColor,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Icon(
-                      Icons.people,
-                      color: Colors.white,
-                    ),
-                    Text(
-                      'Contacts',
-                      style: TextStyle(color: Colors.white, fontSize: 16.0),
-                    )
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
 
